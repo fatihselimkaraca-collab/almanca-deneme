@@ -5,806 +5,488 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Goethe Prüfung">
+<meta name="apple-mobile-web-app-title" content="Goethe">
 <meta name="theme-color" content="#1a365d">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Goethe-Prüfung A1 & A2</title>
+<title>Goethe-Pruefung A1 und A2</title>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { 
-  font-family: 'Crimson Text', Georgia, serif;
-  background: linear-gradient(180deg, #faf8f5 0%, #f0ece4 100%);
-  color: #1a1a1a;
-  min-height: 100vh;
-  min-height: 100dvh;
-  overscroll-behavior: none;
-}
-body { padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0; }
-
-.container { max-width: 480px; margin: 0 auto; padding: 0 16px 32px; min-height: 100vh; min-height: 100dvh; }
-
-/* ─── HOME ─── */
-.header { text-align: center; padding: 40px 0 24px; }
-.logo-mark {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 56px; height: 56px; border-radius: 50%;
-  background: #1a365d; color: #f4d03f;
-  font-size: 28px; font-weight: 700;
-  font-family: 'Playfair Display', Georgia, serif;
-  margin-bottom: 12px; letter-spacing: -1px;
-}
-.title {
-  font-size: 28px; font-weight: 700; margin: 0 0 4px;
-  font-family: 'Playfair Display', Georgia, serif;
-  color: #1a365d; letter-spacing: -0.5px;
-}
-.subtitle { font-size: 15px; color: #6b7280; font-style: italic; }
-
-.level-card {
-  background: #fff; border-radius: 16px; padding: 24px 20px;
-  margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  border: 1px solid #e8e4de;
-}
-.level-badge {
-  display: inline-flex; align-items: center; justify-content: center;
-  background: #1a365d; border-radius: 8px; padding: 4px 14px; margin-bottom: 12px;
-}
-.level-badge span { color: #f4d03f; font-weight: 700; font-size: 14px; letter-spacing: 1px; font-family: monospace; }
-.level-title { font-size: 20px; font-weight: 600; margin: 0 0 16px; color: #1a365d; }
-
-.section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.section-btn {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  padding: 16px 8px; border: 1px solid #e8e4de; border-radius: 12px;
-  background: #faf8f5; cursor: pointer; transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06); font-family: inherit;
-}
-.section-btn:active { transform: scale(0.97); }
-.section-icon { font-size: 28px; }
-.section-name { font-size: 14px; font-weight: 600; color: #1a365d; }
-.section-count { font-size: 11px; color: #888; }
-
-.footer { text-align: center; padding: 20px 0; }
-.footer p { font-size: 12px; color: #999; line-height: 1.5; }
-
-/* ─── TOP BAR ─── */
-.top-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 0 8px; position: sticky; top: 0;
-  background: #faf8f5; z-index: 10;
-}
-.back-btn {
-  width: 36px; height: 36px; border: 1px solid #ddd; border-radius: 50%;
-  background: #fff; font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; font-family: inherit;
-}
-.top-info { display: flex; flex-direction: column; align-items: center; }
-.top-level {
-  font-size: 12px; font-weight: 700; color: #1a365d;
-  background: #e8e4de; padding: 2px 10px; border-radius: 4px; font-family: monospace;
-}
-.top-section { font-size: 13px; color: #666; margin-top: 2px; }
-.timer-badge {
-  font-size: 14px; font-family: monospace; background: #1a365d;
-  color: #f4d03f; padding: 4px 10px; border-radius: 8px; font-weight: 600;
-}
-
-/* ─── PROGRESS ─── */
-.progress-container { height: 4px; background: #e0ddd6; border-radius: 2px; overflow: hidden; margin: 8px 0 4px; }
-.progress-bar { height: 100%; background: linear-gradient(90deg, #1a365d, #2d5aa0); border-radius: 2px; transition: width 0.3s ease; }
-.progress-text { font-size: 12px; color: #888; text-align: center; margin-bottom: 16px; }
-
-/* ─── TASK CARD ─── */
-.task-card {
-  background: #fff; border-radius: 16px; padding: 20px 18px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8e4de; margin-bottom: 16px;
-}
-.task-title { font-size: 18px; font-weight: 700; color: #1a365d; margin: 0 0 8px; }
-.task-instruction { font-size: 14px; color: #555; line-height: 1.6; margin: 0 0 16px; font-style: italic; }
-
-.passage {
-  background: #faf8f5; border: 1px solid #e8e4de; border-radius: 12px;
-  padding: 16px; font-size: 14px; line-height: 1.7; margin-bottom: 16px;
-  white-space: pre-wrap; color: #333;
-}
-
-/* ─── RICHTIG/FALSCH ─── */
-.rf-row { padding: 12px 0; border-bottom: 1px solid #f0ece4; }
-.rf-question { display: block; font-size: 14px; margin-bottom: 8px; line-height: 1.5; color: #333; }
-.rf-btns { display: flex; gap: 8px; }
-.rf-btn {
-  flex: 1; padding: 8px 0; border: 1.5px solid #ddd; border-radius: 8px;
-  cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
-  transition: all 0.15s ease; background: transparent; color: #333;
-}
-.rf-btn.active-true { background: #2d8a4e; color: #fff; border-color: #2d8a4e; }
-.rf-btn.active-false { background: #c0392b; color: #fff; border-color: #c0392b; }
-
-/* ─── MULTIPLE CHOICE ─── */
-.mc-block { padding: 12px 0; border-bottom: 1px solid #f0ece4; }
-.mc-question { font-size: 14px; font-weight: 500; margin-bottom: 10px; line-height: 1.5; color: #333; }
-.mc-options { display: flex; flex-direction: column; gap: 6px; }
-.mc-option {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 10px;
-  cursor: pointer; font-size: 13px; text-align: left;
-  transition: all 0.15s ease; font-family: inherit; line-height: 1.4;
-  background: #f7f7f7; color: #333;
-}
-.mc-option.active { background: #1a365d; color: #fff; border-color: #1a365d; }
-.mc-option.active .option-letter { background: rgba(255,255,255,0.2); color: #fff; }
-.option-letter {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 24px; height: 24px; border-radius: 50%; background: #e8e4de;
-  font-size: 12px; font-weight: 700; flex-shrink: 0; color: #1a365d;
-}
-
-/* ─── DIALOGUE ─── */
-.dialogue-box {
-  background: #f0f4f8; border: 1px solid #d1dce6; border-radius: 12px;
-  padding: 16px; margin-bottom: 16px;
-}
-.dialogue-header {
-  font-size: 13px; font-weight: 700; color: #1a365d;
-  margin-bottom: 10px; border-bottom: 1px solid #d1dce6; padding-bottom: 8px;
-}
-.dialogue-line { font-size: 14px; line-height: 1.7; margin: 4px 0; color: #333; }
-
-/* ─── WRITING ─── */
-.form-fields { display: flex; flex-direction: column; gap: 14px; }
-.form-label { display: block; font-size: 13px; font-weight: 600; color: #1a365d; margin-bottom: 4px; }
-.form-input {
-  width: 100%; padding: 10px 12px; border: 1.5px solid #ddd; border-radius: 8px;
-  font-size: 14px; font-family: inherit; background: #faf8f5; outline: none;
-}
-.form-input:focus, .text-area:focus { border-color: #1a365d; }
-.points-list { padding-left: 20px; margin-bottom: 14px; }
-.points-list li { font-size: 14px; line-height: 1.6; color: #333; margin-bottom: 4px; }
-.text-area {
-  width: 100%; padding: 12px; border: 1.5px solid #ddd; border-radius: 10px;
-  font-size: 14px; font-family: inherit; background: #faf8f5;
-  resize: vertical; outline: none; line-height: 1.6;
-}
-.word-count { font-size: 12px; color: #888; text-align: right; margin-top: 6px; }
-
-/* ─── NAVIGATION ─── */
-.nav-row { display: flex; gap: 10px; padding: 0 0 24px; }
-.nav-btn {
-  flex: 1; padding: 14px 0; border: 1.5px solid #ddd; border-radius: 12px;
-  background: #fff; font-size: 15px; font-weight: 600;
-  cursor: pointer; font-family: inherit; transition: all 0.15s ease; color: #333;
-}
-.nav-btn:active { transform: scale(0.97); }
-.nav-btn.primary { background: #1a365d; color: #fff; border: none; }
-.nav-btn.submit { background: #2d8a4e; color: #fff; border: none; }
-.nav-btn:disabled { opacity: 0.4; }
-
-/* ─── RESULTS ─── */
-.results-card {
-  background: #fff; border-radius: 20px; padding: 32px 20px;
-  margin-top: 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  border: 1px solid #e8e4de; text-align: center;
-}
-.results-emoji { font-size: 56px; margin-bottom: 8px; }
-.results-title { font-size: 24px; font-weight: 700; color: #1a365d; margin: 0 0 4px; }
-.results-level { font-size: 14px; color: #888; margin-bottom: 8px; }
-.timer-result { font-size: 14px; font-family: monospace; color: #666; margin-bottom: 20px; }
-.score-pct {
-  font-size: 48px; font-weight: 700; color: #1a365d;
-  font-family: 'Playfair Display', Georgia, serif; line-height: 1;
-}
-.score-detail { font-size: 16px; color: #888; margin-top: 4px; display: block; }
-.result-bar { height: 8px; background: #e0ddd6; border-radius: 4px; overflow: hidden; margin: 16px 0; }
-.result-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
-.result-message { font-size: 16px; font-weight: 600; margin-bottom: 24px; color: #333; }
-
-.writing-note { font-size: 13px; color: #666; line-height: 1.6; text-align: center; margin-bottom: 16px; font-style: italic; }
-.writing-block {
-  background: #faf8f5; border: 1px solid #e8e4de; border-radius: 12px;
-  padding: 14px; margin-bottom: 12px; text-align: left;
-}
-.writing-block h4 { font-size: 14px; font-weight: 700; color: #1a365d; margin: 0 0 10px; }
-.writing-field-review { display: flex; gap: 8px; font-size: 13px; margin-bottom: 4px; line-height: 1.5; }
-.writing-field-review .label { font-weight: 600; color: #555; min-width: 100px; }
-.writing-text-review { font-size: 14px; line-height: 1.6; color: #333; white-space: pre-wrap; }
-
-.review-title { font-size: 16px; font-weight: 700; color: #1a365d; margin: 20px 0 12px; text-align: left; }
-.review-block { margin-bottom: 16px; text-align: left; }
-.review-block h4 { font-size: 14px; font-weight: 600; color: #555; margin-bottom: 8px; }
-.review-item {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 8px 10px; background: #faf8f5; border-radius: 8px; margin-bottom: 4px;
-}
-.review-item span:first-child { font-size: 13px; color: #333; flex: 1; line-height: 1.4; }
-.review-status { font-size: 18px; font-weight: 700; margin-left: 8px; }
-
-.home-btn {
-  padding: 14px 32px; background: #1a365d; color: #fff; border: none;
-  border-radius: 12px; font-size: 15px; font-weight: 600;
-  cursor: pointer; font-family: inherit; transition: opacity 0.15s ease; margin-top: 8px;
-}
-.home-btn:active { opacity: 0.85; }
-
-.hidden { display: none !important; }
-
-@media (prefers-color-scheme: dark) {
-  html, body { background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); color: #e0e0e0; }
-  .top-bar { background: #1a1a2e; }
-  .level-card, .task-card, .results-card { background: #1f2940; border-color: #2a3a55; }
-  .passage, .writing-block, .review-item { background: #162035; border-color: #2a3a55; }
-  .dialogue-box { background: #162035; border-color: #2a3a55; }
-  .section-btn { background: #162035; border-color: #2a3a55; }
-  .mc-option { background: #162035; color: #e0e0e0; border-color: #2a3a55; }
-  .mc-option.active { background: #2d5aa0; }
-  .rf-btn { border-color: #2a3a55; color: #e0e0e0; }
-  .form-input, .text-area { background: #162035; border-color: #2a3a55; color: #e0e0e0; }
-  .nav-btn { background: #1f2940; border-color: #2a3a55; color: #e0e0e0; }
-  .back-btn { background: #1f2940; border-color: #2a3a55; color: #e0e0e0; }
-  .title, .level-title, .task-title, .results-title, .review-title,
-  .section-name, .form-label, .dialogue-header, .writing-block h4 { color: #7db3ff; }
-  .rf-question, .mc-question, .points-list li, .dialogue-line,
-  .review-item span:first-child, .writing-text-review, .result-message { color: #d0d0d0; }
-  .subtitle, .top-section, .progress-text, .section-count, .word-count,
-  .results-level, .timer-result, .score-detail, .writing-note, .footer p { color: #888; }
-  .score-pct { color: #7db3ff; }
-  .option-letter { background: #2a3a55; color: #7db3ff; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{font-family:'Crimson Text',Georgia,serif;background:linear-gradient(180deg,#faf8f5 0%,#f0ece4 100%);color:#1a1a1a;min-height:100vh;min-height:100dvh;overscroll-behavior:none}
+body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0}
+.ctn{max-width:480px;margin:0 auto;padding:0 16px 32px;min-height:100vh;min-height:100dvh}
+.hdr{text-align:center;padding:40px 0 24px}
+.logo{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:#1a365d;color:#f4d03f;font-size:28px;font-weight:700;font-family:'Playfair Display',Georgia,serif;margin-bottom:12px}
+.ttl{font-size:28px;font-weight:700;margin:0 0 4px;font-family:'Playfair Display',Georgia,serif;color:#1a365d}
+.sub{font-size:15px;color:#6b7280;font-style:italic}
+.lc{background:#fff;border-radius:16px;padding:24px 20px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #e8e4de}
+.lb{display:inline-flex;align-items:center;background:#1a365d;border-radius:8px;padding:4px 14px;margin-bottom:12px}
+.lb span{color:#f4d03f;font-weight:700;font-size:14px;letter-spacing:1px;font-family:monospace}
+.lt{font-size:20px;font-weight:600;margin:0 0 16px;color:#1a365d}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sb{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 8px;border:1px solid #e8e4de;border-radius:12px;background:#faf8f5;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.06);font-family:inherit;font-size:14px}
+.sb:active{transform:scale(.97)}
+.si{font-size:28px}
+.sn{font-size:14px;font-weight:600;color:#1a365d}
+.sc{font-size:11px;color:#888}
+.ft{text-align:center;padding:20px 0}
+.ft p{font-size:12px;color:#999;line-height:1.5}
+.tb{display:flex;align-items:center;justify-content:space-between;padding:16px 0 8px;position:sticky;top:0;background:#faf8f5;z-index:10}
+.bb{width:36px;height:36px;border:1px solid #ddd;border-radius:50%;background:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.ti{display:flex;flex-direction:column;align-items:center}
+.tl{font-size:12px;font-weight:700;color:#1a365d;background:#e8e4de;padding:2px 10px;border-radius:4px;font-family:monospace}
+.ts{font-size:13px;color:#666;margin-top:2px}
+.tmr{font-size:14px;font-family:monospace;background:#1a365d;color:#f4d03f;padding:4px 10px;border-radius:8px;font-weight:600}
+.pc{height:4px;background:#e0ddd6;border-radius:2px;overflow:hidden;margin:8px 0 4px}
+.pb{height:100%;background:linear-gradient(90deg,#1a365d,#2d5aa0);border-radius:2px;transition:width .3s}
+.pt{font-size:12px;color:#888;text-align:center;margin-bottom:16px}
+.tc{background:#fff;border-radius:16px;padding:20px 18px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #e8e4de;margin-bottom:16px}
+.ttt{font-size:18px;font-weight:700;color:#1a365d;margin:0 0 8px}
+.tin{font-size:14px;color:#555;line-height:1.6;margin:0 0 16px;font-style:italic}
+.pas{background:#faf8f5;border:1px solid #e8e4de;border-radius:12px;padding:16px;font-size:14px;line-height:1.7;margin-bottom:16px;white-space:pre-wrap;color:#333}
+.rr{padding:12px 0;border-bottom:1px solid #f0ece4}
+.rq{display:block;font-size:14px;margin-bottom:8px;line-height:1.5;color:#333}
+.rbs{display:flex;gap:8px}
+.rb{flex:1;padding:8px 0;border:1.5px solid #ddd;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;transition:all .15s;background:transparent;color:#333}
+.rb.at{background:#2d8a4e;color:#fff;border-color:#2d8a4e}
+.rb.af{background:#c0392b;color:#fff;border-color:#c0392b}
+.mb{padding:12px 0;border-bottom:1px solid #f0ece4}
+.mq{font-size:14px;font-weight:500;margin-bottom:10px;line-height:1.5;color:#333}
+.mos{display:flex;flex-direction:column;gap:6px}
+.mo{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid #ddd;border-radius:10px;cursor:pointer;font-size:13px;text-align:left;transition:all .15s;font-family:inherit;line-height:1.4;background:#f7f7f7;color:#333}
+.mo.ac{background:#1a365d;color:#fff;border-color:#1a365d}
+.mo.ac .ol{background:rgba(255,255,255,.2);color:#fff}
+.ol{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#e8e4de;font-size:12px;font-weight:700;flex-shrink:0;color:#1a365d}
+.db{background:#f0f4f8;border:1px solid #d1dce6;border-radius:12px;padding:16px;margin-bottom:16px}
+.dh{font-size:13px;font-weight:700;color:#1a365d;margin-bottom:10px;border-bottom:1px solid #d1dce6;padding-bottom:8px}
+.dl{font-size:14px;line-height:1.7;margin:4px 0;color:#333}
+.fl{display:block;font-size:13px;font-weight:600;color:#1a365d;margin-bottom:4px}
+.fi{width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;font-family:inherit;background:#faf8f5;outline:none}
+.fi:focus,.ta:focus{border-color:#1a365d}
+.pl{padding-left:20px;margin-bottom:14px}
+.pl li{font-size:14px;line-height:1.6;color:#333;margin-bottom:4px}
+.ta{width:100%;padding:12px;border:1.5px solid #ddd;border-radius:10px;font-size:14px;font-family:inherit;background:#faf8f5;resize:vertical;outline:none;line-height:1.6}
+.wc{font-size:12px;color:#888;text-align:right;margin-top:6px}
+.nr{display:flex;gap:10px;padding:0 0 24px}
+.nb{flex:1;padding:14px 0;border:1.5px solid #ddd;border-radius:12px;background:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;color:#333}
+.nb:active{transform:scale(.97)}
+.nb.pr{background:#1a365d;color:#fff;border:none}
+.nb.su{background:#2d8a4e;color:#fff;border:none}
+.nb:disabled{opacity:.4}
+.rc{background:#fff;border-radius:20px;padding:32px 20px;margin-top:24px;box-shadow:0 4px 24px rgba(0,0,0,.08);border:1px solid #e8e4de;text-align:center}
+.re{font-size:56px;margin-bottom:8px}
+.rtt{font-size:24px;font-weight:700;color:#1a365d;margin:0 0 4px}
+.rl{font-size:14px;color:#888;margin-bottom:8px}
+.tr{font-size:14px;font-family:monospace;color:#666;margin-bottom:20px}
+.sp{font-size:48px;font-weight:700;color:#1a365d;font-family:'Playfair Display',Georgia,serif;line-height:1}
+.sd{font-size:16px;color:#888;margin-top:4px;display:block}
+.rbr{height:8px;background:#e0ddd6;border-radius:4px;overflow:hidden;margin:16px 0}
+.rbf{height:100%;border-radius:4px;transition:width .5s}
+.rm{font-size:16px;font-weight:600;margin-bottom:24px;color:#333}
+.wn{font-size:13px;color:#666;line-height:1.6;text-align:center;margin-bottom:16px;font-style:italic}
+.wb{background:#faf8f5;border:1px solid #e8e4de;border-radius:12px;padding:14px;margin-bottom:12px;text-align:left}
+.wb h4{font-size:14px;font-weight:700;color:#1a365d;margin:0 0 10px}
+.wfr{display:flex;gap:8px;font-size:13px;margin-bottom:4px;line-height:1.5}
+.wfr .lbl{font-weight:600;color:#555;min-width:100px}
+.wtr{font-size:14px;line-height:1.6;color:#333;white-space:pre-wrap}
+.rvt{font-size:16px;font-weight:700;color:#1a365d;margin:20px 0 12px;text-align:left}
+.rvb{margin-bottom:16px;text-align:left}
+.rvb h4{font-size:14px;font-weight:600;color:#555;margin-bottom:8px}
+.rvi{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#faf8f5;border-radius:8px;margin-bottom:4px}
+.rvi span:first-child{font-size:13px;color:#333;flex:1;line-height:1.4}
+.rvs{font-size:18px;font-weight:700;margin-left:8px}
+.hb{padding:14px 32px;background:#1a365d;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
+.hb:active{opacity:.85}
+@media(prefers-color-scheme:dark){
+html,body{background:linear-gradient(180deg,#1a1a2e 0%,#16213e 100%);color:#e0e0e0}
+.tb{background:#1a1a2e}
+.lc,.tc,.rc{background:#1f2940;border-color:#2a3a55}
+.pas,.wb,.rvi,.db{background:#162035;border-color:#2a3a55}
+.sb,.mo{background:#162035;border-color:#2a3a55;color:#e0e0e0}
+.mo.ac{background:#2d5aa0}
+.rb{border-color:#2a3a55;color:#e0e0e0}
+.fi,.ta{background:#162035;border-color:#2a3a55;color:#e0e0e0}
+.nb{background:#1f2940;border-color:#2a3a55;color:#e0e0e0}
+.bb{background:#1f2940;border-color:#2a3a55;color:#e0e0e0}
+.ttl,.lt,.ttt,.rtt,.rvt,.sn,.fl,.dh,.wb h4{color:#7db3ff}
+.rq,.mq,.pl li,.dl,.rvi span:first-child,.wtr,.rm{color:#d0d0d0}
+.sub,.ts,.pt,.sc,.wc,.rl,.tr,.sd,.wn,.ft p{color:#888}
+.sp{color:#7db3ff}
+.ol{background:#2a3a55;color:#7db3ff}
 }
 </style>
 </head>
 <body>
-
-<div class="container" id="app"></div>
-
+<div class="ctn" id="app"></div>
 <script>
-// ─── QUESTION BANK ───────────────────────────────────────────────
-const questionBank = {
-  A1: {
-    lesen: [
-      {
-        id:"a1-l1", type:"reading",
-        title:"Teil 1: Anzeigen lesen",
-        instruction:"Lesen Sie die Anzeige und die Aufgaben. Kreuzen Sie an: Richtig oder Falsch?",
-        passage:"🏠 Wohnung zu vermieten\nSchöne 2-Zimmer-Wohnung in Berlin-Mitte.\n65 m², 3. Stock, Balkon, Küche mit Kühlschrank und Herd.\nMiete: 580 € warm. Ab 1. März frei.\nHaustiere erlaubt. Kontakt: Frau Müller, Tel. 030-5567890",
-        questions:[
-          {q:"Die Wohnung hat drei Zimmer.",correct:false},
-          {q:"Man kann dort ab März wohnen.",correct:true},
-          {q:"Haustiere darf man nicht mitbringen.",correct:false},
-          {q:"Die Wohnung hat einen Balkon.",correct:true},
-          {q:"Die Wohnung kostet 580 € ohne Nebenkosten.",correct:false}
-        ]
-      },
-      {
-        id:"a1-l2", type:"reading",
-        title:"Teil 2: Kurze Texte verstehen",
-        instruction:"Lesen Sie die E-Mail und beantworten Sie die Fragen.",
-        passage:"Liebe Maria,\nich komme am Samstag nach Hamburg. Mein Zug kommt um 14:30 Uhr an.\nKönnen wir zusammen Kaffee trinken? Ich kenne ein schönes Café am Hafen.\nAm Abend muss ich leider schon wieder zurückfahren.\nViele Grüße, Anna",
-        questions:[
-          {q:"Anna fährt am Samstag nach Hamburg.",correct:true},
-          {q:"Der Zug kommt um halb drei an.",correct:true},
-          {q:"Anna möchte ins Restaurant gehen.",correct:false},
-          {q:"Anna bleibt das ganze Wochenende.",correct:false},
-          {q:"Das Café ist am Hafen.",correct:true}
-        ]
-      },
-      {
-        id:"a1-l3", type:"multiple_choice",
-        title:"Teil 3: Schilder und Aushänge",
-        instruction:"Lesen Sie die Schilder. Was bedeuten sie? Wählen Sie die richtige Antwort.",
-        questions:[
-          {q:'🚫 „Bitte nicht rauchen!"',options:["Man darf hier rauchen.","Rauchen ist hier verboten.","Rauchen kostet extra."],correct:1},
-          {q:'🕐 „Öffnungszeiten: Mo–Fr 8:00–18:00"',options:["Am Samstag ist geöffnet.","Man kann am Freitag um 19 Uhr kommen.","Am Montag kann man um 10 Uhr kommen."],correct:2},
-          {q:'📌 „Deutschkurs A1 – Beginn: 5. April, 18:00 Uhr, Raum 201"',options:["Der Kurs beginnt im März.","Der Kurs ist am Abend.","Der Kurs ist in Raum 102."],correct:1},
-          {q:'🅿️ „Parken nur für Kunden – max. 2 Stunden"',options:["Jeder darf hier parken.","Kunden dürfen 2 Stunden parken.","Parken ist verboten."],correct:1}
-        ]
-      }
-    ],
-    hoeren: [
-      {
-        id:"a1-h1", type:"listening_sim",
-        title:"Teil 1: Kurze Alltagsgespräche",
-        instruction:"Sie hören ein Gespräch. Lesen Sie den Dialog und beantworten Sie die Fragen.",
-        dialogue:"👩 Guten Tag! Ich möchte bitte einen Termin beim Arzt.\n👨 Guten Tag. Wann möchten Sie kommen?\n👩 Am Mittwoch, geht das?\n👨 Am Mittwoch um 10 Uhr ist noch frei.\n👩 Ja, das passt gut. Mein Name ist Kaya, Elif Kaya.\n👨 In Ordnung, Frau Kaya. Mittwoch, 10 Uhr. Bis dann!",
-        questions:[
-          {q:"Wo ruft die Frau an?",options:["Beim Zahnarzt","Beim Arzt","In der Apotheke"],correct:1},
-          {q:"Wann ist der Termin?",options:["Montag um 10 Uhr","Mittwoch um 10 Uhr","Mittwoch um 12 Uhr"],correct:1},
-          {q:"Wie heißt die Frau?",options:["Maria Kaya","Elif Kaya","Elif Koch"],correct:1}
-        ]
-      },
-      {
-        id:"a1-h2", type:"listening_sim",
-        title:"Teil 2: Telefonansage",
-        instruction:"Sie hören eine Ansage. Lesen Sie den Text und beantworten Sie die Fragen.",
-        dialogue:'📞 Telefonansage:\n"Willkommen bei der Sprachschule Deutsch Plus.\nUnsere Öffnungszeiten sind Montag bis Freitag von 9 bis 17 Uhr.\nAm Samstag sind wir von 10 bis 13 Uhr geöffnet.\nFür Anmeldungen drücken Sie bitte die 1.\nFür Informationen zu Kursen drücken Sie die 2.\nVielen Dank für Ihren Anruf!"',
-        questions:[
-          {q:"Wann ist die Schule am Samstag geöffnet?",options:["9 bis 17 Uhr","10 bis 13 Uhr","Geschlossen"],correct:1},
-          {q:"Was drückt man für Kurs-Informationen?",options:["Die 1","Die 2","Die 3"],correct:1},
-          {q:"Was ist das für eine Schule?",options:["Eine Musikschule","Eine Fahrschule","Eine Sprachschule"],correct:2}
-        ]
-      },
-      {
-        id:"a1-h3", type:"listening_sim",
-        title:"Teil 3: Im Supermarkt",
-        instruction:"Sie hören ein Gespräch im Supermarkt. Lesen Sie und beantworten Sie.",
-        dialogue:"👩 Entschuldigung, wo finde ich die Milch?\n👨 Die Milch ist im Gang 3, links neben dem Käse.\n👩 Danke! Und haben Sie auch frisches Brot?\n👨 Ja, die Bäckerei ist gleich vorne am Eingang.\n👩 Sehr gut. Was kostet das Vollkornbrot?\n👨 Das kostet 2,80 Euro.\n👩 Dann nehme ich eins. Danke!",
-        questions:[
-          {q:"Wo ist die Milch?",options:["Gang 1, rechts","Gang 3, links","Am Eingang"],correct:1},
-          {q:"Wo ist die Bäckerei?",options:["Im Gang 3","Hinten im Laden","Vorne am Eingang"],correct:2},
-          {q:"Was kostet das Vollkornbrot?",options:["2,50 €","2,80 €","3,20 €"],correct:1}
-        ]
-      }
-    ],
-    schreiben: [
-      {
-        id:"a1-s1", type:"writing",
-        title:"Teil 1: Formular ausfüllen",
-        instruction:"Füllen Sie das Anmeldeformular aus. Schreiben Sie Ihre Informationen.",
-        fields:[
-          {label:"Vorname",placeholder:"z.B. Maria"},
-          {label:"Nachname",placeholder:"z.B. Schmidt"},
-          {label:"Geburtsdatum",placeholder:"z.B. 15.03.1990"},
-          {label:"Adresse",placeholder:"z.B. Berliner Str. 12, 10115 Berlin"},
-          {label:"Telefonnummer",placeholder:"z.B. 0176-12345678"},
-          {label:"E-Mail",placeholder:"z.B. maria@email.de"}
-        ]
-      },
-      {
-        id:"a1-s2", type:"writing_free",
-        title:"Teil 2: Kurze Nachricht schreiben",
-        instruction:"Ihr Freund Thomas hat Geburtstag. Schreiben Sie eine kurze Nachricht (circa 30 Wörter). Schreiben Sie zu allen drei Punkten:",
-        points:["Gratulation zum Geburtstag","Was schenken Sie Thomas?","Wann möchten Sie Thomas besuchen?"],
-        minWords:20, maxWords:40
-      },
-      {
-        id:"a1-s3", type:"writing_free",
-        title:"Teil 2: Antwort auf eine Einladung",
-        instruction:"Ihre Kollegin Lisa lädt Sie zu einer Party ein. Schreiben Sie eine Antwort (circa 30 Wörter). Schreiben Sie zu allen drei Punkten:",
-        points:["Danke für die Einladung","Können Sie kommen? Warum / Warum nicht?","Was bringen Sie mit?"],
-        minWords:20, maxWords:40
-      }
-    ],
-    wortschatz: [
-      {
-        id:"a1-w1", type:"fill_blank",
-        title:"Wortschatz: Alltag & Familie",
-        instruction:"Ergänzen Sie die Sätze mit dem richtigen Wort.",
-        questions:[
-          {q:"Mein Vater und meine Mutter sind meine ___.",options:["Kinder","Eltern","Freunde"],correct:1},
-          {q:"Ich ___ jeden Morgen um 7 Uhr auf.",options:["stehe","gehe","komme"],correct:0},
-          {q:"Am Sonntag ___ ich gern lange.",options:["schlafe","arbeite","koche"],correct:0},
-          {q:"Im ___ ist es sehr kalt und es schneit.",options:["Sommer","Frühling","Winter"],correct:2},
-          {q:"Ich trinke morgens gern eine Tasse ___.",options:["Suppe","Kaffee","Wasser"],correct:1},
-          {q:"Die Kinder ___ in der Schule.",options:["lernen","kaufen","kochen"],correct:0}
-        ]
-      },
-      {
-        id:"a1-w2", type:"grammar",
-        title:"Grammatik: Artikel & Verben",
-        instruction:"Wählen Sie die richtige Form.",
-        questions:[
-          {q:"___ Buch ist sehr interessant.",options:["Der","Das","Die"],correct:1},
-          {q:"Ich ___ aus der Türkei.",options:["komme","kommst","kommt"],correct:0},
-          {q:"Wir ___ heute ins Kino.",options:["geht","gehen","gehst"],correct:1},
-          {q:"___ du Deutsch?",options:["Sprichst","Sprecht","Spreche"],correct:0},
-          {q:"Das ist ___ Tasche. (feminin)",options:["ein","eine","einen"],correct:1},
-          {q:"Er ___ zwei Brüder.",options:["habe","hast","hat"],correct:2},
-          {q:"Ich ___ gern Fußball.",options:["spielen","spiele","spielt"],correct:1},
-          {q:"___ ihr morgen frei?",options:["Seid","Sind","Bist"],correct:0}
-        ]
-      }
-    ]
-  },
-  A2: {
-    lesen: [
-      {
-        id:"a2-l1", type:"reading",
-        title:"Teil 1: Zeitungsartikel",
-        instruction:"Lesen Sie den Text und kreuzen Sie an: Richtig oder Falsch?",
-        passage:"📰 Neue Stadtbibliothek öffnet am Marktplatz\n\nDie Stadt Freiburg eröffnet am 15. September ihre neue Stadtbibliothek am Marktplatz. Das moderne Gebäude hat vier Stockwerke und bietet Platz für über 200.000 Bücher. Im Erdgeschoss gibt es ein Café und einen Bereich für Kinder. Im ersten Stock findet man Romane und Zeitschriften, im zweiten Stock Sachbücher und im dritten Stock gibt es Arbeitsplätze mit kostenlosem WLAN.\n\nDie Bibliothek ist montags bis samstags von 9 bis 20 Uhr geöffnet. Der Eintritt ist kostenlos, aber für die Ausleihe braucht man einen Bibliotheksausweis. Dieser kostet 15 Euro pro Jahr für Erwachsene. Für Schüler und Studenten ist er kostenlos.",
-        questions:[
-          {q:"Die neue Bibliothek ist am Bahnhof.",correct:false},
-          {q:"Das Gebäude hat vier Stockwerke.",correct:true},
-          {q:"Im Erdgeschoss kann man Kaffee trinken.",correct:true},
-          {q:"Die Bibliothek ist auch am Sonntag geöffnet.",correct:false},
-          {q:"Studenten bezahlen nichts für den Ausweis.",correct:true},
-          {q:"WLAN gibt es im dritten Stock.",correct:true}
-        ]
-      },
-      {
-        id:"a2-l2", type:"multiple_choice",
-        title:"Teil 2: Mitteilungen verstehen",
-        instruction:"Lesen Sie die Mitteilungen und wählen Sie die richtige Antwort.",
-        questions:[
-          {q:'"Liebe Mieter, am Donnerstag, den 20. März, wird von 8 bis 14 Uhr das Wasser abgestellt. Bitte füllen Sie vorher genug Wasser ab. Ihre Hausverwaltung"',options:["Das Wasser wird den ganzen Tag abgestellt.","Man sollte vorher Wasser sammeln.","Die Mieter müssen das Wasser selbst abstellen."],correct:1},
-          {q:'"Sehr geehrte Kursteilnehmer, der Deutschkurs am Freitag fällt leider aus. Der Unterricht wird am Montag nachgeholt. Bitte bringen Sie das Kursbuch Kapitel 7 mit."',options:["Am Freitag findet der Kurs normal statt.","Am Montag gibt es den Ersatztermin.","Man braucht kein Kursbuch mitbringen."],correct:1},
-          {q:'"Wegen Bauarbeiten ist die Königstraße vom 1. bis 15. April gesperrt. Bitte nutzen Sie die Umleitung über die Schillerstraße."',options:["Die Königstraße ist für immer gesperrt.","Man kann zwei Wochen lang nicht durch die Königstraße fahren.","Die Schillerstraße ist auch gesperrt."],correct:1}
-        ]
-      },
-      {
-        id:"a2-l3", type:"reading",
-        title:"Teil 3: Persönlicher Brief",
-        instruction:"Lesen Sie den Brief und entscheiden Sie: Richtig oder Falsch?",
-        passage:"Lieber Marco,\nwie geht es dir? Ich habe tolle Neuigkeiten! Seit letztem Monat arbeite ich in einem neuen Restaurant als Köchin. Die Arbeitszeiten sind von 11 bis 22 Uhr, also ziemlich lang. Aber das Team ist super nett und ich lerne jeden Tag etwas Neues.\n\nAm Wochenende habe ich meistens frei. Hast du Lust, mich mal in München zu besuchen? Wir könnten zusammen in die Berge fahren oder ins Museum gehen.\n\nSchreib mir bald!\nLiebe Grüße, Sofia",
-        questions:[
-          {q:"Sofia arbeitet seit einem Jahr im Restaurant.",correct:false},
-          {q:"Sie arbeitet als Köchin.",correct:true},
-          {q:"Sofia mag ihre Kollegen.",correct:true},
-          {q:"Am Wochenende muss sie arbeiten.",correct:false},
-          {q:"Sofia wohnt in München.",correct:true},
-          {q:"Sie möchte Marco einladen.",correct:true}
-        ]
-      }
-    ],
-    hoeren: [
-      {
-        id:"a2-h1", type:"listening_sim",
-        title:"Teil 1: Alltagsgespräch",
-        instruction:"Sie hören ein Gespräch zwischen zwei Freunden. Lesen Sie und beantworten Sie die Fragen.",
-        dialogue:"👩 Hey Jan, hast du am Samstag schon was vor?\n👨 Noch nicht. Warum?\n👩 Ich möchte ins neue italienische Restaurant gehen. Es soll total gut sein.\n👨 Gute Idee! Um wie viel Uhr?\n👩 Wie wäre es um 19 Uhr? Ich habe schon einen Tisch für drei Personen reserviert.\n👨 Drei Personen? Wer kommt noch?\n👩 Meine Schwester Anna. Du kennst sie doch vom letzten Sommer.\n👨 Ah ja, klar! Dann bis Samstag.\n👩 Super! Das Restaurant heißt „Bella Italia" und ist in der Mozartstraße.",
-        questions:[
-          {q:"Was möchte die Frau am Samstag machen?",options:["Ins Kino gehen","Ins Restaurant gehen","Kochen"],correct:1},
-          {q:"Um wie viel Uhr treffen sie sich?",options:["18 Uhr","19 Uhr","20 Uhr"],correct:1},
-          {q:"Wie viele Personen kommen insgesamt?",options:["Zwei","Drei","Vier"],correct:1},
-          {q:"Wer ist Anna?",options:["Jans Freundin","Die Schwester der Frau","Eine Kollegin"],correct:1}
-        ]
-      },
-      {
-        id:"a2-h2", type:"listening_sim",
-        title:"Teil 2: Radiodurchsage",
-        instruction:"Sie hören eine Durchsage im Radio. Lesen Sie und beantworten Sie die Fragen.",
-        dialogue:'📻 Radio-Durchsage:\n"Guten Morgen, liebe Hörerinnen und Hörer! Hier ist der Verkehrsbericht für heute.\nAuf der A7 Richtung Hamburg gibt es einen Stau von 5 Kilometern wegen eines Unfalls.\nDie Polizei empfiehlt die Umleitung über die B73.\nAußerdem: Wegen Nebel bitte vorsichtig fahren auf der A1 zwischen Bremen und Osnabrück.\nDie Temperaturen liegen heute zwischen 2 und 8 Grad. Am Nachmittag wird es sonnig.\nWir wünschen Ihnen eine gute Fahrt!"',
-        questions:[
-          {q:"Was ist das Problem auf der A7?",options:["Baustelle","Unfall","Nebel"],correct:1},
-          {q:"Wie lang ist der Stau?",options:["3 Kilometer","5 Kilometer","7 Kilometer"],correct:1},
-          {q:"Wo gibt es Nebel?",options:["A7 bei Hamburg","A1 zwischen Bremen und Osnabrück","B73"],correct:1},
-          {q:"Wie wird das Wetter am Nachmittag?",options:["Regen","Schnee","Sonne"],correct:2}
-        ]
-      }
-    ],
-    schreiben: [
-      {
-        id:"a2-s1", type:"writing_free",
-        title:"Teil 1: Persönliche E-Mail",
-        instruction:"Ihre Freundin hat eine neue Wohnung. Schreiben Sie eine E-Mail (circa 40–50 Wörter). Schreiben Sie zu allen vier Punkten:",
-        points:["Gratulieren Sie zur neuen Wohnung.","Fragen Sie: Wo ist die Wohnung?","Bieten Sie Hilfe beim Umzug an.","Schlagen Sie einen Besuch vor."],
-        minWords:35, maxWords:60
-      },
-      {
-        id:"a2-s2", type:"writing_free",
-        title:"Teil 2: Formelle Nachricht",
-        instruction:"Sie können morgen nicht zum Deutschkurs kommen. Schreiben Sie eine E-Mail an Ihren Lehrer (circa 40–50 Wörter). Schreiben Sie zu allen vier Punkten:",
-        points:["Warum können Sie nicht kommen?","Entschuldigen Sie sich.","Fragen Sie nach den Hausaufgaben.","Wann kommen Sie wieder?"],
-        minWords:35, maxWords:60
-      }
-    ],
-    wortschatz: [
-      {
-        id:"a2-w1", type:"fill_blank",
-        title:"Wortschatz: Beruf & Arbeit",
-        instruction:"Ergänzen Sie die Sätze mit dem richtigen Wort.",
-        questions:[
-          {q:"Ich habe mich um die ___ als Verkäufer beworben.",options:["Stelle","Schule","Wohnung"],correct:0},
-          {q:"Mein ___ beginnt jeden Tag um 8 Uhr.",options:["Feierabend","Arbeitstag","Urlaub"],correct:1},
-          {q:"Nach der Arbeit habe ich ___.",options:["Feierabend","Frühstück","Mittagspause"],correct:0},
-          {q:"Im Juli habe ich zwei Wochen ___.",options:["Arbeit","Urlaub","Kurs"],correct:1},
-          {q:"Sie muss noch eine ___ an den Chef schreiben.",options:["Rechnung","E-Mail","Zeitung"],correct:1},
-          {q:"Er arbeitet ___ – von zu Hause aus.",options:["im Büro","im Homeoffice","in der Fabrik"],correct:1}
-        ]
-      },
-      {
-        id:"a2-w2", type:"grammar",
-        title:"Grammatik: Perfekt & Nebensätze",
-        instruction:"Wählen Sie die richtige Form.",
-        questions:[
-          {q:"Ich ___ gestern ins Kino gegangen.",options:["habe","bin","war"],correct:1},
-          {q:"Er hat den ganzen Tag ___.",options:["gearbeitet","arbeiten","gearbeiten"],correct:0},
-          {q:"Ich bleibe zu Hause, ___ ich krank bin.",options:["denn","weil","aber"],correct:1},
-          {q:"Sie ___ letztes Jahr nach Deutschland gekommen.",options:["hat","ist","wird"],correct:1},
-          {q:"___ du schon gefrühstückt?",options:["Bist","Hast","Wirst"],correct:1},
-          {q:"Er sagt, ___ er morgen kommt.",options:["dass","weil","wenn"],correct:0},
-          {q:"Wir haben uns ___, als wir Kinder waren.",options:["kennengelernt","kennenlernen","kennengelernen"],correct:0},
-          {q:"Ich weiß nicht, ___ der Zug abfährt.",options:["wann","wenn","als"],correct:0}
-        ]
-      }
-    ]
-  }
+var QB={
+A1:{
+lesen:[
+{id:"a1-l1",type:"reading",title:"Teil 1: Anzeigen lesen",
+instruction:"Lesen Sie die Anzeige und die Aufgaben. Kreuzen Sie an: Richtig oder Falsch?",
+passage:"Wohnung zu vermieten\nSchoene 2-Zimmer-Wohnung in Berlin-Mitte.\n65 m2, 3. Stock, Balkon, Kueche mit Kuehlschrank und Herd.\nMiete: 580 Euro warm. Ab 1. Maerz frei.\nHaustiere erlaubt. Kontakt: Frau Mueller, Tel. 030-5567890",
+questions:[
+{q:"Die Wohnung hat drei Zimmer.",c:false},
+{q:"Man kann dort ab Maerz wohnen.",c:true},
+{q:"Haustiere darf man nicht mitbringen.",c:false},
+{q:"Die Wohnung hat einen Balkon.",c:true},
+{q:"Die Wohnung kostet 580 Euro ohne Nebenkosten.",c:false}
+]},
+{id:"a1-l2",type:"reading",title:"Teil 2: Kurze Texte verstehen",
+instruction:"Lesen Sie die E-Mail und beantworten Sie die Fragen.",
+passage:"Liebe Maria,\nich komme am Samstag nach Hamburg. Mein Zug kommt um 14:30 Uhr an.\nKoennen wir zusammen Kaffee trinken? Ich kenne ein schoenes Cafe am Hafen.\nAm Abend muss ich leider schon wieder zurueckfahren.\nViele Gruesse, Anna",
+questions:[
+{q:"Anna faehrt am Samstag nach Hamburg.",c:true},
+{q:"Der Zug kommt um halb drei an.",c:true},
+{q:"Anna moechte ins Restaurant gehen.",c:false},
+{q:"Anna bleibt das ganze Wochenende.",c:false},
+{q:"Das Cafe ist am Hafen.",c:true}
+]},
+{id:"a1-l3",type:"mc",title:"Teil 3: Schilder und Aushaenge",
+instruction:"Lesen Sie die Schilder. Was bedeuten sie? Waehlen Sie die richtige Antwort.",
+questions:[
+{q:"Schild: Bitte nicht rauchen!",o:["Man darf hier rauchen.","Rauchen ist hier verboten.","Rauchen kostet extra."],c:1},
+{q:"Schild: Oeffnungszeiten Mo-Fr 8:00-18:00",o:["Am Samstag ist geoeffnet.","Man kann am Freitag um 19 Uhr kommen.","Am Montag kann man um 10 Uhr kommen."],c:2},
+{q:"Aushang: Deutschkurs A1 - Beginn 5. April, 18:00 Uhr, Raum 201",o:["Der Kurs beginnt im Maerz.","Der Kurs ist am Abend.","Der Kurs ist in Raum 102."],c:1},
+{q:"Schild: Parken nur fuer Kunden - max. 2 Stunden",o:["Jeder darf hier parken.","Kunden duerfen 2 Stunden parken.","Parken ist verboten."],c:1}
+]}
+],
+hoeren:[
+{id:"a1-h1",type:"listen",title:"Teil 1: Kurze Alltagsgespraeche",
+instruction:"Sie hoeren ein Gespraech. Lesen Sie den Dialog und beantworten Sie die Fragen.",
+dialogue:"Frau: Guten Tag! Ich moechte bitte einen Termin beim Arzt.\nMann: Guten Tag. Wann moechten Sie kommen?\nFrau: Am Mittwoch, geht das?\nMann: Am Mittwoch um 10 Uhr ist noch frei.\nFrau: Ja, das passt gut. Mein Name ist Kaya, Elif Kaya.\nMann: In Ordnung, Frau Kaya. Mittwoch, 10 Uhr. Bis dann!",
+questions:[
+{q:"Wo ruft die Frau an?",o:["Beim Zahnarzt","Beim Arzt","In der Apotheke"],c:1},
+{q:"Wann ist der Termin?",o:["Montag um 10 Uhr","Mittwoch um 10 Uhr","Mittwoch um 12 Uhr"],c:1},
+{q:"Wie heisst die Frau?",o:["Maria Kaya","Elif Kaya","Elif Koch"],c:1}
+]},
+{id:"a1-h2",type:"listen",title:"Teil 2: Telefonansage",
+instruction:"Sie hoeren eine Ansage. Lesen Sie den Text und beantworten Sie die Fragen.",
+dialogue:"Telefonansage:\nWillkommen bei der Sprachschule Deutsch Plus.\nUnsere Oeffnungszeiten sind Montag bis Freitag von 9 bis 17 Uhr.\nAm Samstag sind wir von 10 bis 13 Uhr geoeffnet.\nFuer Anmeldungen druecken Sie bitte die 1.\nFuer Informationen zu Kursen druecken Sie die 2.\nVielen Dank fuer Ihren Anruf!",
+questions:[
+{q:"Wann ist die Schule am Samstag geoeffnet?",o:["9 bis 17 Uhr","10 bis 13 Uhr","Geschlossen"],c:1},
+{q:"Was drueckt man fuer Kurs-Informationen?",o:["Die 1","Die 2","Die 3"],c:1},
+{q:"Was ist das fuer eine Schule?",o:["Eine Musikschule","Eine Fahrschule","Eine Sprachschule"],c:2}
+]},
+{id:"a1-h3",type:"listen",title:"Teil 3: Im Supermarkt",
+instruction:"Sie hoeren ein Gespraech im Supermarkt. Lesen Sie und beantworten Sie.",
+dialogue:"Frau: Entschuldigung, wo finde ich die Milch?\nMann: Die Milch ist im Gang 3, links neben dem Kaese.\nFrau: Danke! Und haben Sie auch frisches Brot?\nMann: Ja, die Baeckerei ist gleich vorne am Eingang.\nFrau: Sehr gut. Was kostet das Vollkornbrot?\nMann: Das kostet 2,80 Euro.\nFrau: Dann nehme ich eins. Danke!",
+questions:[
+{q:"Wo ist die Milch?",o:["Gang 1, rechts","Gang 3, links","Am Eingang"],c:1},
+{q:"Wo ist die Baeckerei?",o:["Im Gang 3","Hinten im Laden","Vorne am Eingang"],c:2},
+{q:"Was kostet das Vollkornbrot?",o:["2,50 Euro","2,80 Euro","3,20 Euro"],c:1}
+]}
+],
+schreiben:[
+{id:"a1-s1",type:"form",title:"Teil 1: Formular ausfuellen",
+instruction:"Fuellen Sie das Anmeldeformular aus.",
+fields:[
+{l:"Vorname",p:"z.B. Maria"},
+{l:"Nachname",p:"z.B. Schmidt"},
+{l:"Geburtsdatum",p:"z.B. 15.03.1990"},
+{l:"Adresse",p:"z.B. Berliner Str. 12, 10115 Berlin"},
+{l:"Telefonnummer",p:"z.B. 0176-12345678"},
+{l:"E-Mail",p:"z.B. maria@email.de"}
+]},
+{id:"a1-s2",type:"free",title:"Teil 2: Kurze Nachricht",
+instruction:"Ihr Freund Thomas hat Geburtstag. Schreiben Sie eine kurze Nachricht (circa 30 Woerter).",
+points:["Gratulation zum Geburtstag","Was schenken Sie Thomas?","Wann moechten Sie Thomas besuchen?"],
+min:20,max:40},
+{id:"a1-s3",type:"free",title:"Teil 2: Antwort auf eine Einladung",
+instruction:"Ihre Kollegin Lisa laedt Sie zu einer Party ein. Schreiben Sie eine Antwort (circa 30 Woerter).",
+points:["Danke fuer die Einladung","Koennen Sie kommen? Warum / Warum nicht?","Was bringen Sie mit?"],
+min:20,max:40}
+],
+wortschatz:[
+{id:"a1-w1",type:"mc",title:"Wortschatz: Alltag und Familie",
+instruction:"Ergaenzen Sie die Saetze mit dem richtigen Wort.",
+questions:[
+{q:"Mein Vater und meine Mutter sind meine ___.",o:["Kinder","Eltern","Freunde"],c:1},
+{q:"Ich ___ jeden Morgen um 7 Uhr auf.",o:["stehe","gehe","komme"],c:0},
+{q:"Am Sonntag ___ ich gern lange.",o:["schlafe","arbeite","koche"],c:0},
+{q:"Im ___ ist es sehr kalt und es schneit.",o:["Sommer","Fruehling","Winter"],c:2},
+{q:"Ich trinke morgens gern eine Tasse ___.",o:["Suppe","Kaffee","Wasser"],c:1},
+{q:"Die Kinder ___ in der Schule.",o:["lernen","kaufen","kochen"],c:0}
+]},
+{id:"a1-w2",type:"mc",title:"Grammatik: Artikel und Verben",
+instruction:"Waehlen Sie die richtige Form.",
+questions:[
+{q:"___ Buch ist sehr interessant.",o:["Der","Das","Die"],c:1},
+{q:"Ich ___ aus der Tuerkei.",o:["komme","kommst","kommt"],c:0},
+{q:"Wir ___ heute ins Kino.",o:["geht","gehen","gehst"],c:1},
+{q:"___ du Deutsch?",o:["Sprichst","Sprecht","Spreche"],c:0},
+{q:"Das ist ___ Tasche. (feminin)",o:["ein","eine","einen"],c:1},
+{q:"Er ___ zwei Brueder.",o:["habe","hast","hat"],c:2},
+{q:"Ich ___ gern Fussball.",o:["spielen","spiele","spielt"],c:1},
+{q:"___ ihr morgen frei?",o:["Seid","Sind","Bist"],c:0}
+]}
+]
+},
+A2:{
+lesen:[
+{id:"a2-l1",type:"reading",title:"Teil 1: Zeitungsartikel",
+instruction:"Lesen Sie den Text und kreuzen Sie an: Richtig oder Falsch?",
+passage:"Neue Stadtbibliothek oeffnet am Marktplatz\n\nDie Stadt Freiburg eroeffnet am 15. September ihre neue Stadtbibliothek am Marktplatz. Das moderne Gebaeude hat vier Stockwerke und bietet Platz fuer ueber 200.000 Buecher. Im Erdgeschoss gibt es ein Cafe und einen Bereich fuer Kinder. Im ersten Stock findet man Romane und Zeitschriften, im zweiten Stock Sachbuecher und im dritten Stock gibt es Arbeitsplaetze mit kostenlosem WLAN.\n\nDie Bibliothek ist montags bis samstags von 9 bis 20 Uhr geoeffnet. Der Eintritt ist kostenlos, aber fuer die Ausleihe braucht man einen Bibliotheksausweis. Dieser kostet 15 Euro pro Jahr fuer Erwachsene. Fuer Schueler und Studenten ist er kostenlos.",
+questions:[
+{q:"Die neue Bibliothek ist am Bahnhof.",c:false},
+{q:"Das Gebaeude hat vier Stockwerke.",c:true},
+{q:"Im Erdgeschoss kann man Kaffee trinken.",c:true},
+{q:"Die Bibliothek ist auch am Sonntag geoeffnet.",c:false},
+{q:"Studenten bezahlen nichts fuer den Ausweis.",c:true},
+{q:"WLAN gibt es im dritten Stock.",c:true}
+]},
+{id:"a2-l2",type:"mc",title:"Teil 2: Mitteilungen verstehen",
+instruction:"Lesen Sie die Mitteilungen und waehlen Sie die richtige Antwort.",
+questions:[
+{q:"Mitteilung: Liebe Mieter, am Donnerstag den 20. Maerz wird von 8 bis 14 Uhr das Wasser abgestellt. Bitte fuellen Sie vorher genug Wasser ab.",o:["Das Wasser wird den ganzen Tag abgestellt.","Man sollte vorher Wasser sammeln.","Die Mieter muessen das Wasser selbst abstellen."],c:1},
+{q:"Mitteilung: Der Deutschkurs am Freitag faellt leider aus. Der Unterricht wird am Montag nachgeholt. Bitte bringen Sie Kursbuch Kapitel 7 mit.",o:["Am Freitag findet der Kurs normal statt.","Am Montag gibt es den Ersatztermin.","Man braucht kein Kursbuch mitbringen."],c:1},
+{q:"Mitteilung: Wegen Bauarbeiten ist die Koenigstrasse vom 1. bis 15. April gesperrt. Bitte nutzen Sie die Umleitung ueber die Schillerstrasse.",o:["Die Koenigstrasse ist fuer immer gesperrt.","Man kann zwei Wochen lang nicht durch die Koenigstrasse fahren.","Die Schillerstrasse ist auch gesperrt."],c:1}
+]},
+{id:"a2-l3",type:"reading",title:"Teil 3: Persoenlicher Brief",
+instruction:"Lesen Sie den Brief und entscheiden Sie: Richtig oder Falsch?",
+passage:"Lieber Marco,\nwie geht es dir? Ich habe tolle Neuigkeiten! Seit letztem Monat arbeite ich in einem neuen Restaurant als Koechin. Die Arbeitszeiten sind von 11 bis 22 Uhr, also ziemlich lang. Aber das Team ist super nett und ich lerne jeden Tag etwas Neues.\n\nAm Wochenende habe ich meistens frei. Hast du Lust, mich mal in Muenchen zu besuchen? Wir koennten zusammen in die Berge fahren oder ins Museum gehen.\n\nSchreib mir bald!\nLiebe Gruesse, Sofia",
+questions:[
+{q:"Sofia arbeitet seit einem Jahr im Restaurant.",c:false},
+{q:"Sie arbeitet als Koechin.",c:true},
+{q:"Sofia mag ihre Kollegen.",c:true},
+{q:"Am Wochenende muss sie arbeiten.",c:false},
+{q:"Sofia wohnt in Muenchen.",c:true},
+{q:"Sie moechte Marco einladen.",c:true}
+]}
+],
+hoeren:[
+{id:"a2-h1",type:"listen",title:"Teil 1: Alltagsgespraech",
+instruction:"Sie hoeren ein Gespraech zwischen zwei Freunden. Lesen Sie und beantworten Sie die Fragen.",
+dialogue:"Frau: Hey Jan, hast du am Samstag schon was vor?\nMann: Noch nicht. Warum?\nFrau: Ich moechte ins neue italienische Restaurant gehen. Es soll total gut sein.\nMann: Gute Idee! Um wie viel Uhr?\nFrau: Wie waere es um 19 Uhr? Ich habe schon einen Tisch fuer drei Personen reserviert.\nMann: Drei Personen? Wer kommt noch?\nFrau: Meine Schwester Anna. Du kennst sie doch vom letzten Sommer.\nMann: Ah ja, klar! Dann bis Samstag.\nFrau: Super! Das Restaurant heisst Bella Italia und ist in der Mozartstrasse.",
+questions:[
+{q:"Was moechte die Frau am Samstag machen?",o:["Ins Kino gehen","Ins Restaurant gehen","Kochen"],c:1},
+{q:"Um wie viel Uhr treffen sie sich?",o:["18 Uhr","19 Uhr","20 Uhr"],c:1},
+{q:"Wie viele Personen kommen insgesamt?",o:["Zwei","Drei","Vier"],c:1},
+{q:"Wer ist Anna?",o:["Jans Freundin","Die Schwester der Frau","Eine Kollegin"],c:1}
+]},
+{id:"a2-h2",type:"listen",title:"Teil 2: Radiodurchsage",
+instruction:"Sie hoeren eine Durchsage im Radio. Lesen Sie und beantworten Sie die Fragen.",
+dialogue:"Radio-Durchsage:\nGuten Morgen, liebe Hoererinnen und Hoerer! Hier ist der Verkehrsbericht fuer heute.\nAuf der A7 Richtung Hamburg gibt es einen Stau von 5 Kilometern wegen eines Unfalls.\nDie Polizei empfiehlt die Umleitung ueber die B73.\nAusserdem: Wegen Nebel bitte vorsichtig fahren auf der A1 zwischen Bremen und Osnabrueck.\nDie Temperaturen liegen heute zwischen 2 und 8 Grad. Am Nachmittag wird es sonnig.\nWir wuenschen Ihnen eine gute Fahrt!",
+questions:[
+{q:"Was ist das Problem auf der A7?",o:["Baustelle","Unfall","Nebel"],c:1},
+{q:"Wie lang ist der Stau?",o:["3 Kilometer","5 Kilometer","7 Kilometer"],c:1},
+{q:"Wo gibt es Nebel?",o:["A7 bei Hamburg","A1 zwischen Bremen und Osnabrueck","B73"],c:1},
+{q:"Wie wird das Wetter am Nachmittag?",o:["Regen","Schnee","Sonne"],c:2}
+]}
+],
+schreiben:[
+{id:"a2-s1",type:"free",title:"Teil 1: Persoenliche E-Mail",
+instruction:"Ihre Freundin hat eine neue Wohnung. Schreiben Sie eine E-Mail (circa 40-50 Woerter).",
+points:["Gratulieren Sie zur neuen Wohnung.","Fragen Sie: Wo ist die Wohnung?","Bieten Sie Hilfe beim Umzug an.","Schlagen Sie einen Besuch vor."],
+min:35,max:60},
+{id:"a2-s2",type:"free",title:"Teil 2: Formelle Nachricht",
+instruction:"Sie koennen morgen nicht zum Deutschkurs kommen. Schreiben Sie eine E-Mail an Ihren Lehrer (circa 40-50 Woerter).",
+points:["Warum koennen Sie nicht kommen?","Entschuldigen Sie sich.","Fragen Sie nach den Hausaufgaben.","Wann kommen Sie wieder?"],
+min:35,max:60}
+],
+wortschatz:[
+{id:"a2-w1",type:"mc",title:"Wortschatz: Beruf und Arbeit",
+instruction:"Ergaenzen Sie die Saetze mit dem richtigen Wort.",
+questions:[
+{q:"Ich habe mich um die ___ als Verkaeufer beworben.",o:["Stelle","Schule","Wohnung"],c:0},
+{q:"Mein ___ beginnt jeden Tag um 8 Uhr.",o:["Feierabend","Arbeitstag","Urlaub"],c:1},
+{q:"Nach der Arbeit habe ich ___.",o:["Feierabend","Fruehstueck","Mittagspause"],c:0},
+{q:"Im Juli habe ich zwei Wochen ___.",o:["Arbeit","Urlaub","Kurs"],c:1},
+{q:"Sie muss noch eine ___ an den Chef schreiben.",o:["Rechnung","E-Mail","Zeitung"],c:1},
+{q:"Er arbeitet ___ - von zu Hause aus.",o:["im Buero","im Homeoffice","in der Fabrik"],c:1}
+]},
+{id:"a2-w2",type:"mc",title:"Grammatik: Perfekt und Nebensaetze",
+instruction:"Waehlen Sie die richtige Form.",
+questions:[
+{q:"Ich ___ gestern ins Kino gegangen.",o:["habe","bin","war"],c:1},
+{q:"Er hat den ganzen Tag ___.",o:["gearbeitet","arbeiten","gearbeiten"],c:0},
+{q:"Ich bleibe zu Hause, ___ ich krank bin.",o:["denn","weil","aber"],c:1},
+{q:"Sie ___ letztes Jahr nach Deutschland gekommen.",o:["hat","ist","wird"],c:1},
+{q:"___ du schon gefruehstueckt?",o:["Bist","Hast","Wirst"],c:1},
+{q:"Er sagt, ___ er morgen kommt.",o:["dass","weil","wenn"],c:0},
+{q:"Wir haben uns ___, als wir Kinder waren.",o:["kennengelernt","kennenlernen","kennengelernen"],c:0},
+{q:"Ich weiss nicht, ___ der Zug abfaehrt.",o:["wann","wenn","als"],c:0}
+]}
+]
+}
 };
 
-const sectionNames = {lesen:"Lesen",hoeren:"Hören",schreiben:"Schreiben",wortschatz:"Wortschatz & Grammatik"};
-const icons = {lesen:"📖",hoeren:"🎧",schreiben:"✍️",wortschatz:"🔤"};
+var SN={lesen:"Lesen",hoeren:"Hoeren",schreiben:"Schreiben",wortschatz:"Wortschatz"};
+var IC={lesen:"\u{1F4D6}",hoeren:"\u{1F3A7}",schreiben:"\u270D\uFE0F",wortschatz:"\u{1F524}"};
 
-// ─── STATE ───────────────────────────────────────────────────────
-let state = {
-  screen: "home",
-  level: null,
-  section: null,
-  taskIdx: 0,
-  answers: {},
-  writingTexts: {},
-  submitted: false,
-  results: null,
-  timer: 0,
-  timerInterval: null
-};
+var S={screen:"home",level:null,sec:null,idx:0,ans:{},wrt:{},done:false,res:null,time:0,iv:null};
 
-function formatTime(s) {
-  const m = Math.floor(s / 60);
-  const sec = s % 60;
-  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+function fmt(s){var m=Math.floor(s/60),ss=s%60;return String(m).padStart(2,"0")+":"+String(ss).padStart(2,"0")}
+
+function go(l,s){
+  if(S.iv)clearInterval(S.iv);
+  S={screen:"exam",level:l,sec:s,idx:0,ans:{},wrt:{},done:false,res:null,time:0,iv:null};
+  S.iv=setInterval(function(){S.time++;var e=document.getElementById("tmr");if(e)e.textContent=fmt(S.time)},1000);
+  R();
 }
 
-function startExam(lvl, sec) {
-  state = { screen:"exam", level:lvl, section:sec, taskIdx:0, answers:{}, writingTexts:{}, submitted:false, results:null, timer:0, timerInterval:null };
-  state.timerInterval = setInterval(() => { state.timer++; updateTimer(); }, 1000);
-  render();
+function home(){if(S.iv)clearInterval(S.iv);S={screen:"home",level:null,sec:null,idx:0,ans:{},wrt:{},done:false,res:null,time:0,iv:null};R()}
+function ans(qi,v){S.ans[S.idx+"-"+qi]=v;R()}
+function wrt(k,v){S.wrt[k]=v}
+function next(){S.idx++;R();window.scrollTo(0,0)}
+function prev(){S.idx--;R();window.scrollTo(0,0)}
+
+function submit(){
+  if(S.iv)clearInterval(S.iv);
+  var ts=QB[S.level][S.sec],tot=0,cor=0;
+  for(var t=0;t<ts.length;t++){
+    var tk=ts[t];
+    if(tk.type==="form"||tk.type==="free")continue;
+    var qs=tk.questions||[];
+    for(var q=0;q<qs.length;q++){tot++;if(S.ans[t+"-"+q]===qs[q].c)cor++}
+  }
+  S.done=true;S.res={tot:tot,cor:cor,pct:tot>0?Math.round(cor/tot*100):0};R();window.scrollTo(0,0);
 }
 
-function updateTimer() {
-  const el = document.getElementById('timer-display');
-  if (el) el.textContent = '⏱ ' + formatTime(state.timer);
+function e(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+
+function R(){
+  var a=document.getElementById("app");
+  if(S.screen==="home"){RH(a);return}
+  if(S.done&&S.res){RR(a);return}
+  RE(a);
 }
 
-function goHome() {
-  if (state.timerInterval) clearInterval(state.timerInterval);
-  state = { screen:"home", level:null, section:null, taskIdx:0, answers:{}, writingTexts:{}, submitted:false, results:null, timer:0, timerInterval:null };
-  render();
+function RH(a){
+  var h='<div class="hdr"><div class="logo">G</div><h1 class="ttl">Goethe-Pr\u00fcfung</h1><p class="sub">\u00dcbungspr\u00fcfung A1 & A2</p></div>';
+  var lvls=["A1","A2"];
+  for(var i=0;i<lvls.length;i++){
+    var l=lvls[i];
+    h+='<div class="lc"><div class="lb"><span>'+l+'</span></div><h2 class="lt">Goethe-Zertifikat '+l+'</h2><div class="sg">';
+    var secs=["lesen","hoeren","schreiben","wortschatz"];
+    for(var j=0;j<secs.length;j++){
+      var s=secs[j],cnt=QB[l][s].length;
+      h+='<button class="sb" onclick="go(\''+l+'\',\''+s+'\')"><span class="si">'+IC[s]+'</span><span class="sn">'+SN[s]+'</span><span class="sc">'+cnt+' Aufgabe'+(cnt>1?'n':'')+'</span></button>';
+    }
+    h+='</div></div>';
+  }
+  h+='<div class="ft"><p>\u00dcbungsmaterial im Goethe-Pr\u00fcfungsformat.<br>Nicht offiziell vom Goethe-Institut.</p></div>';
+  a.innerHTML=h;
 }
 
-function setAnswer(qIdx, val) {
-  state.answers[`${state.taskIdx}-${qIdx}`] = val;
-  render();
-}
+function RE(a){
+  var ts=QB[S.level][S.sec],tk=ts[S.idx],pr=((S.idx+1)/ts.length*100);
+  var h='<div class="tb"><button class="bb" onclick="home()">\u2715</button><div class="ti"><span class="tl">'+S.level+'</span><span class="ts">'+SN[S.sec]+'</span></div><div class="tmr" id="tmr">'+fmt(S.time)+'</div></div>';
+  h+='<div class="pc"><div class="pb" style="width:'+pr+'%"></div></div><div class="pt">Aufgabe '+(S.idx+1)+' von '+ts.length+'</div>';
+  h+='<div class="tc"><h3 class="ttt">'+e(tk.title)+'</h3><p class="tin">'+e(tk.instruction)+'</p>';
 
-function setWriting(key, val) {
-  state.writingTexts[key] = val;
-}
-
-function nextTask() { state.taskIdx++; render(); window.scrollTo(0,0); }
-function prevTask() { state.taskIdx--; render(); window.scrollTo(0,0); }
-
-function submitExam() {
-  if (state.timerInterval) clearInterval(state.timerInterval);
-  const tasks = questionBank[state.level][state.section];
-  let total = 0, correct = 0;
-  tasks.forEach((task, tIdx) => {
-    if (task.type === "writing" || task.type === "writing_free") return;
-    (task.questions||[]).forEach((q, qIdx) => {
-      total++;
-      const key = `${tIdx}-${qIdx}`;
-      if (state.answers[key] === q.correct) correct++;
-    });
-  });
-  state.submitted = true;
-  state.results = { total, correct, pct: total > 0 ? Math.round((correct/total)*100) : 0 };
-  render();
-  window.scrollTo(0,0);
-}
-
-// ─── ESCAPE HTML ─────────────────────────────────────────────────
-function esc(s) {
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
-
-// ─── RENDER ──────────────────────────────────────────────────────
-function render() {
-  const app = document.getElementById('app');
-  if (state.screen === "home") { renderHome(app); return; }
-  if (state.submitted && state.results) { renderResults(app); return; }
-  renderExam(app);
-}
-
-function renderHome(app) {
-  let html = `
-    <div class="header">
-      <div class="logo-mark">G</div>
-      <h1 class="title">Goethe-Prüfung</h1>
-      <p class="subtitle">Übungsprüfung A1 & A2</p>
-    </div>`;
-
-  ["A1","A2"].forEach(lvl => {
-    html += `<div class="level-card">
-      <div class="level-badge"><span>${lvl}</span></div>
-      <h2 class="level-title">Goethe-Zertifikat ${lvl}</h2>
-      <div class="section-grid">`;
-    Object.keys(sectionNames).forEach(sec => {
-      const count = questionBank[lvl][sec].length;
-      html += `<button class="section-btn" onclick="startExam('${lvl}','${sec}')">
-        <span class="section-icon">${icons[sec]}</span>
-        <span class="section-name">${sectionNames[sec]}</span>
-        <span class="section-count">${count} Aufgabe${count>1?'n':''}</span>
-      </button>`;
-    });
-    html += `</div></div>`;
-  });
-
-  html += `<div class="footer"><p>Übungsmaterial im Goethe-Prüfungsformat.<br>Nicht offiziell vom Goethe-Institut.</p></div>`;
-  app.innerHTML = html;
-}
-
-function renderExam(app) {
-  const tasks = questionBank[state.level][state.section];
-  const task = tasks[state.taskIdx];
-  const progress = ((state.taskIdx + 1) / tasks.length) * 100;
-
-  let html = `
-    <div class="top-bar">
-      <button class="back-btn" onclick="goHome()">✕</button>
-      <div class="top-info">
-        <span class="top-level">${state.level}</span>
-        <span class="top-section">${sectionNames[state.section]}</span>
-      </div>
-      <div class="timer-badge" id="timer-display">⏱ ${formatTime(state.timer)}</div>
-    </div>
-    <div class="progress-container"><div class="progress-bar" style="width:${progress}%"></div></div>
-    <div class="progress-text">Aufgabe ${state.taskIdx+1} von ${tasks.length}</div>
-    <div class="task-card">
-      <h3 class="task-title">${esc(task.title)}</h3>
-      <p class="task-instruction">${esc(task.instruction)}</p>`;
-
-  // Reading
-  if (task.type === "reading") {
-    html += `<div class="passage">${esc(task.passage)}</div>`;
-    task.questions.forEach((q, qIdx) => {
-      const key = `${state.taskIdx}-${qIdx}`;
-      const ans = state.answers[key];
-      html += `<div class="rf-row">
-        <span class="rf-question">${esc(q.q)}</span>
-        <div class="rf-btns">
-          <button class="rf-btn ${ans===true?'active-true':''}" onclick="setAnswer(${qIdx},true)">Richtig</button>
-          <button class="rf-btn ${ans===false?'active-false':''}" onclick="setAnswer(${qIdx},false)">Falsch</button>
-        </div>
-      </div>`;
-    });
+  if(tk.type==="reading"){
+    h+='<div class="pas">'+e(tk.passage)+'</div>';
+    for(var i=0;i<tk.questions.length;i++){
+      var q=tk.questions[i],k=S.idx+"-"+i,ua=S.ans[k];
+      h+='<div class="rr"><span class="rq">'+e(q.q)+'</span><div class="rbs">';
+      h+='<button class="rb'+(ua===true?' at':'')+'" onclick="ans('+i+',true)">Richtig</button>';
+      h+='<button class="rb'+(ua===false?' af':'')+'" onclick="ans('+i+',false)">Falsch</button>';
+      h+='</div></div>';
+    }
   }
 
-  // Multiple choice / fill blank / grammar
-  if (["multiple_choice","fill_blank","grammar"].includes(task.type)) {
-    if (task.passage) html += `<div class="passage">${esc(task.passage)}</div>`;
-    task.questions.forEach((q, qIdx) => {
-      const key = `${state.taskIdx}-${qIdx}`;
-      const ans = state.answers[key];
-      html += `<div class="mc-block"><p class="mc-question">${esc(q.q)}</p><div class="mc-options">`;
-      q.options.forEach((opt, oIdx) => {
-        html += `<button class="mc-option ${ans===oIdx?'active':''}" onclick="setAnswer(${qIdx},${oIdx})">
-          <span class="option-letter">${String.fromCharCode(65+oIdx)}</span>${esc(opt)}
-        </button>`;
-      });
-      html += `</div></div>`;
-    });
-  }
-
-  // Listening sim
-  if (task.type === "listening_sim") {
-    html += `<div class="dialogue-box"><div class="dialogue-header">🎧 Hörtext (Simulation)</div>`;
-    task.dialogue.split('\n').forEach(line => {
-      html += `<p class="dialogue-line">${esc(line)}</p>`;
-    });
-    html += `</div>`;
-    task.questions.forEach((q, qIdx) => {
-      const key = `${state.taskIdx}-${qIdx}`;
-      const ans = state.answers[key];
-      html += `<div class="mc-block"><p class="mc-question">${esc(q.q)}</p><div class="mc-options">`;
-      q.options.forEach((opt, oIdx) => {
-        html += `<button class="mc-option ${ans===oIdx?'active':''}" onclick="setAnswer(${qIdx},${oIdx})">
-          <span class="option-letter">${String.fromCharCode(65+oIdx)}</span>${esc(opt)}
-        </button>`;
-      });
-      html += `</div></div>`;
-    });
-  }
-
-  // Writing form
-  if (task.type === "writing") {
-    html += `<div class="form-fields">`;
-    task.fields.forEach((f, fIdx) => {
-      const key = `${state.taskIdx}-${fIdx}`;
-      const val = state.writingTexts[key] || '';
-      html += `<div>
-        <label class="form-label">${esc(f.label)}</label>
-        <input class="form-input" placeholder="${esc(f.placeholder)}" value="${esc(val)}" oninput="setWriting('${key}',this.value)">
-      </div>`;
-    });
-    html += `</div>`;
-  }
-
-  // Writing free
-  if (task.type === "writing_free") {
-    html += `<ul class="points-list">`;
-    task.points.forEach(p => { html += `<li>${esc(p)}</li>`; });
-    html += `</ul>`;
-    const tKey = `${state.taskIdx}-text`;
-    const tVal = state.writingTexts[tKey] || '';
-    const wc = tVal.split(/\s+/).filter(Boolean).length;
-    html += `<textarea class="text-area" rows="6" placeholder="Schreiben Sie hier..." oninput="setWriting('${tKey}',this.value)">${esc(tVal)}</textarea>
-      <div class="word-count">${wc} Wörter${task.minWords ? ` (min. ${task.minWords})`:''}</div>`;
-  }
-
-  html += `</div>`; // close task-card
-
-  // Nav
-  html += `<div class="nav-row">
-    <button class="nav-btn" ${state.taskIdx===0?'disabled':''} onclick="prevTask()">← Zurück</button>`;
-  if (state.taskIdx < tasks.length - 1) {
-    html += `<button class="nav-btn primary" onclick="nextTask()">Weiter →</button>`;
-  } else {
-    html += `<button class="nav-btn submit" onclick="submitExam()">Abgeben ✓</button>`;
-  }
-  html += `</div>`;
-
-  app.innerHTML = html;
-}
-
-function renderResults(app) {
-  const r = state.results;
-  const isWriting = state.section === "schreiben";
-  const tasks = questionBank[state.level][state.section];
-
-  let html = `<div class="results-card">
-    <div class="results-emoji">${r.pct>=60?'🎉':r.pct>=40?'💪':'📚'}</div>
-    <h2 class="results-title">Ergebnis</h2>
-    <div class="results-level">${state.level} – ${sectionNames[state.section]}</div>
-    <div class="timer-result">⏱ ${formatTime(state.timer)}</div>`;
-
-  if (!isWriting) {
-    const barColor = r.pct>=60?'#2d8a4e':r.pct>=40?'#b8860b':'#c0392b';
-    html += `<div style="text-align:center">
-      <span class="score-pct">${r.pct}%</span>
-      <span class="score-detail">${r.correct}/${r.total}</span>
-    </div>
-    <div class="result-bar"><div class="result-bar-fill" style="width:${r.pct}%;background:${barColor}"></div></div>
-    <p class="result-message">${r.pct>=60?'Bestanden! Sehr gut gemacht! 🌟':r.pct>=40?'Knapp! Noch ein bisschen üben. 💪':'Nicht bestanden. Weiter üben! 📖'}</p>`;
-
-    // Answer review
-    html += `<h3 class="review-title">Antworten überprüfen</h3>`;
-    tasks.forEach((task, tIdx) => {
-      if (task.type==="writing"||task.type==="writing_free") return;
-      html += `<div class="review-block"><h4>${esc(task.title)}</h4>`;
-      task.questions.forEach((q, qIdx) => {
-        const key = `${tIdx}-${qIdx}`;
-        const userAns = state.answers[key];
-        const isCorrect = userAns === q.correct;
-        const borderColor = isCorrect ? '#2d8a4e' : userAns !== undefined ? '#c0392b' : '#999';
-        const symbol = isCorrect ? '✓' : userAns !== undefined ? '✗' : '—';
-        const symColor = isCorrect ? '#2d8a4e' : '#c0392b';
-        html += `<div class="review-item" style="border-left:3px solid ${borderColor}">
-          <span>${esc(q.q)}</span>
-          <span class="review-status" style="color:${symColor}">${symbol}</span>
-        </div>`;
-      });
-      html += `</div>`;
-    });
-  } else {
-    html += `<p class="writing-note">✍️ Schreiben wird nicht automatisch bewertet.<br>Überprüfen Sie Ihre Texte selbst oder bitten Sie einen Lehrer um Feedback.</p>`;
-    tasks.forEach((task, tIdx) => {
-      html += `<div class="writing-block"><h4>${esc(task.title)}</h4>`;
-      if (task.type === "writing") {
-        task.fields.forEach((f, fIdx) => {
-          const val = state.writingTexts[`${tIdx}-${fIdx}`] || '—';
-          html += `<div class="writing-field-review"><span class="label">${esc(f.label)}:</span><span>${esc(val)}</span></div>`;
-        });
+  if(tk.type==="mc"){
+    for(var i=0;i<tk.questions.length;i++){
+      var q=tk.questions[i],k=S.idx+"-"+i,ua=S.ans[k];
+      h+='<div class="mb"><p class="mq">'+e(q.q)+'</p><div class="mos">';
+      for(var j=0;j<q.o.length;j++){
+        h+='<button class="mo'+(ua===j?' ac':'')+'" onclick="ans('+i+','+j+')"><span class="ol">'+String.fromCharCode(65+j)+'</span>'+e(q.o[j])+'</button>';
       }
-      if (task.type === "writing_free") {
-        const val = state.writingTexts[`${tIdx}-text`] || '— Kein Text —';
-        html += `<p class="writing-text-review">${esc(val)}</p>`;
-      }
-      html += `</div>`;
-    });
+      h+='</div></div>';
+    }
   }
 
-  html += `<button class="home-btn" onclick="goHome()">← Zurück zur Startseite</button></div>`;
-  app.innerHTML = html;
+  if(tk.type==="listen"){
+    h+='<div class="db"><div class="dh">\u{1F3A7} Hoertext (Simulation)</div>';
+    var lines=tk.dialogue.split("\n");
+    for(var i=0;i<lines.length;i++)h+='<p class="dl">'+e(lines[i])+'</p>';
+    h+='</div>';
+    for(var i=0;i<tk.questions.length;i++){
+      var q=tk.questions[i],k=S.idx+"-"+i,ua=S.ans[k];
+      h+='<div class="mb"><p class="mq">'+e(q.q)+'</p><div class="mos">';
+      for(var j=0;j<q.o.length;j++){
+        h+='<button class="mo'+(ua===j?' ac':'')+'" onclick="ans('+i+','+j+')"><span class="ol">'+String.fromCharCode(65+j)+'</span>'+e(q.o[j])+'</button>';
+      }
+      h+='</div></div>';
+    }
+  }
+
+  if(tk.type==="form"){
+    h+='<div style="display:flex;flex-direction:column;gap:14px">';
+    for(var i=0;i<tk.fields.length;i++){
+      var f=tk.fields[i],k=S.idx+"-"+i,v=S.wrt[k]||"";
+      h+='<div><label class="fl">'+e(f.l)+'</label><input class="fi" placeholder="'+e(f.p)+'" value="'+e(v)+'" oninput="wrt(\''+k+'\',this.value)"></div>';
+    }
+    h+='</div>';
+  }
+
+  if(tk.type==="free"){
+    h+='<ul class="pl">';
+    for(var i=0;i<tk.points.length;i++)h+='<li>'+e(tk.points[i])+'</li>';
+    h+='</ul>';
+    var tk2=S.idx+"-text",tv=S.wrt[tk2]||"",wc=tv.split(/\s+/).filter(Boolean).length;
+    h+='<textarea class="ta" rows="6" placeholder="Schreiben Sie hier..." oninput="wrt(\''+tk2+'\',this.value)">'+e(tv)+'</textarea>';
+    h+='<div class="wc">'+wc+' Woerter'+(tk.min?' (min. '+tk.min+')':'')+'</div>';
+  }
+
+  h+='</div>';
+  h+='<div class="nr"><button class="nb" '+(S.idx===0?'disabled':'')+' onclick="prev()">\u2190 Zurueck</button>';
+  if(S.idx<ts.length-1){h+='<button class="nb pr" onclick="next()">Weiter \u2192</button>'}
+  else{h+='<button class="nb su" onclick="submit()">Abgeben \u2713</button>'}
+  h+='</div>';
+  a.innerHTML=h;
 }
 
-// ─── INIT ────────────────────────────────────────────────────────
-render();
+function RR(a){
+  var r=S.res,iw=S.sec==="schreiben",ts=QB[S.level][S.sec];
+  var h='<div class="rc"><div class="re">'+(r.pct>=60?'\u{1F389}':r.pct>=40?'\u{1F4AA}':'\u{1F4DA}')+'</div>';
+  h+='<h2 class="rtt">Ergebnis</h2><div class="rl">'+S.level+' \u2013 '+SN[S.sec]+'</div><div class="tr">\u23F1 '+fmt(S.time)+'</div>';
 
-// PWA Service Worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
+  if(!iw){
+    var bc=r.pct>=60?"#2d8a4e":r.pct>=40?"#b8860b":"#c0392b";
+    h+='<div style="text-align:center"><span class="sp">'+r.pct+'%</span><span class="sd">'+r.cor+'/'+r.tot+'</span></div>';
+    h+='<div class="rbr"><div class="rbf" style="width:'+r.pct+'%;background:'+bc+'"></div></div>';
+    h+='<p class="rm">'+(r.pct>=60?'Bestanden! Sehr gut gemacht! \u{1F31F}':r.pct>=40?'Knapp! Noch ein bisschen ueben. \u{1F4AA}':'Nicht bestanden. Weiter ueben! \u{1F4D6}')+'</p>';
+    h+='<h3 class="rvt">Antworten ueberpruefen</h3>';
+    for(var t=0;t<ts.length;t++){
+      var tk=ts[t];
+      if(tk.type==="form"||tk.type==="free")continue;
+      h+='<div class="rvb"><h4>'+e(tk.title)+'</h4>';
+      for(var q=0;q<tk.questions.length;q++){
+        var qu=tk.questions[q],k=t+"-"+q,ua=S.ans[k],ic=ua===qu.c;
+        var brd=ic?"#2d8a4e":ua!==undefined?"#c0392b":"#999";
+        var sym=ic?"\u2713":ua!==undefined?"\u2717":"\u2014";
+        var syc=ic?"#2d8a4e":"#c0392b";
+        h+='<div class="rvi" style="border-left:3px solid '+brd+'"><span>'+e(qu.q)+'</span><span class="rvs" style="color:'+syc+'">'+sym+'</span></div>';
+      }
+      h+='</div>';
+    }
+  } else {
+    h+='<p class="wn">\u270D\uFE0F Schreiben wird nicht automatisch bewertet.<br>Ueberpruefen Sie Ihre Texte selbst oder bitten Sie einen Lehrer um Feedback.</p>';
+    for(var t=0;t<ts.length;t++){
+      var tk=ts[t];
+      h+='<div class="wb"><h4>'+e(tk.title)+'</h4>';
+      if(tk.type==="form"){
+        for(var f=0;f<tk.fields.length;f++){
+          var v=S.wrt[t+"-"+f]||"\u2014";
+          h+='<div class="wfr"><span class="lbl">'+e(tk.fields[f].l)+':</span><span>'+e(v)+'</span></div>';
+        }
+      }
+      if(tk.type==="free"){
+        var v=S.wrt[t+"-text"]||"\u2014 Kein Text \u2014";
+        h+='<p class="wtr">'+e(v)+'</p>';
+      }
+      h+='</div>';
+    }
+  }
+  h+='<button class="hb" onclick="home()">\u2190 Zurueck zur Startseite</button></div>';
+  a.innerHTML=h;
 }
+
+R();
+if("serviceWorker"in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}
 </script>
 </body>
 </html>
